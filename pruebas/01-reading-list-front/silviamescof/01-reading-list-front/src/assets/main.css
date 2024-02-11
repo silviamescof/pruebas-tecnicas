@@ -1,0 +1,58 @@
+@import './base.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.contenido {
+    height: 120vh;
+    background-color: black;
+    border: solid 5px white;
+    border-radius: 10px;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: italic;
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+.listaDeLectura {
+    border: solid 5px white;
+    border-radius: 10px;
+    position: fixed;
+    top: 2%;
+    right: 2%;
+    min-height: 96vh; 
+    overflow-y: hidden;
+    width: 35%;
+}
+.contenedorDisponibles {
+    width: 80%;
+    margin-left: 10%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+.tarjeta {
+    width: 90%;
+    overflow-y: auto;
+    margin-bottom: 10%;
+}
+h1 {
+    width: 100%;
+    font-size: 5em;
+    text-align: center;
+}
+.listaDeLectura > h5{
+    width: 100%;
+    text-align: center;
+    font-size: 4em;
+}
+.pagination , .genero{
+    display: inline-block;
+    padding-top: 5%;
+}
+.pagination{
+    width: 40%;
+    text-align: center;
+}
+.imagenTodos{
+    width: 70%;
+}
