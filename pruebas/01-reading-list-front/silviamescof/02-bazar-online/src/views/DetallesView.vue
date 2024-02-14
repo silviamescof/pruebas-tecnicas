@@ -1,0 +1,13 @@
+<template>
+  <div>
+    <ProductoDetallado></ProductoDetallado>
+  </div>
+</template>
+
+<script setup lang="ts">
+import ProductoDetallado from '@/components/ProductoDetallado.vue';
+</script>
+
+<style scoped>
+/* Estilos específicos para la vista de detalle del producto */
+</style>
