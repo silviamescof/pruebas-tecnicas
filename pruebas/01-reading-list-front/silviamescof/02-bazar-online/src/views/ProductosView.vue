@@ -11,6 +11,12 @@
       
     </form>
     <p>Resultados de busqueda para {{ terminoBusqueda }} : {{ resultados.length }} </p>
+  
+  <span v-for="(cantidad, categoria) in categorias" class="categoria">{{ cantidad.toString() }}</span>
+
+
+
+
     <!-- Iterar sobre resultados y renderizar el componente Producto -->
     <div class="columnas">
       <div v-for="(producto, index) in resultados" :key="index" >
@@ -45,6 +51,30 @@ interface Producto {
 const terminoBusqueda = ref<string>('');
 const resultados = ref<Producto[]>([]); // Cambiado a ref para poder mutar la lista
 const route = useRoute();
+const categorias = ref<Map<string, number>>(new Map());
+
+const determinarCategorias = () => {
+ // Reinicializar el mapa antes de volver a contar
+ categorias.value.clear();
+
+// Recorrer el array de resultados
+resultados.value.forEach(producto => {
+  // Obtener la categoría del producto
+  const categoria = producto.category.toString();
+
+  // Incrementar el contador en el mapa
+  if (categorias.value.has(categoria)) {
+    categorias.value.set(categoria, categorias.value.get(categoria)! + 1);
+  } else {
+    categorias.value.set(categoria, 1);
+  }
+});
+
+};
+
+// Llamar a la función para probar
+determinarCategorias();
+
 
 const hacerPeticion = async () => {
 
@@ -54,7 +84,7 @@ const hacerPeticion = async () => {
     const response = await fetch(url);
     const data = await response.json();
     resultados.value = data.items; // Almacena los resultados en el dato reactivo
-
+    determinarCategorias();
   } catch (error) {
     console.error('Error al obtener resultados:', error);
   }

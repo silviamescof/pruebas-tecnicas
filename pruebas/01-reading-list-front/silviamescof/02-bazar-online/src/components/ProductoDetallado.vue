@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, defineEmits } from 'vue';
 import { useRouter } from 'vue-router';
 
 interface Producto {
@@ -64,9 +64,14 @@ onMounted(() => {
   }
   console.log(productoSeleccionado.value);
 });
+const emits = defineEmits(['productoAgregadoAlCarro']);
+const agregarAlCarro = () => {
+  emits('productoAgregadoAlCarro');
+};
 </script>
 
 <template>
+  
   <div class="logopeque">    
         <img class="logopeque" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8eVhW_B-z8OxTwZfEDcyM6jS_95uRhz9V_A&usqp=CAU" alt="Logo de la empresa">
       </div>
@@ -101,7 +106,7 @@ onMounted(() => {
     <p class="description">{{ productoSeleccionado?.description }}</p>
   </div>
 
-  <button class="comprar">Comprar</button>
+  <button class="comprar" @click="agregarAlCarro">AÑADIR A LA CESTA</button>
 </template>
 
 
