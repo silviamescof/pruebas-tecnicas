@@ -1,40 +1,46 @@
+ <!--////////////////////////////////////////SCRIPT///////////////////////////////////////-->  
 <script setup lang="ts">
+
 import { onMounted, ref, defineEmits } from 'vue';
+import type { Producto } from '@/services/interfaces';
 import { useRouter } from 'vue-router';
 
-interface Producto {
-  brand: string;
-  category: string;
-  description: string;
-  discountPercentage: number;
-  id: number;
-  images: string[];
-  price: number;
-  rating: number;
-  stock: number;
-  thumbnail: string;
-  title: string;
-}
-const productoSeleccionado = ref<Producto | null>(null);
-// Datos reactivos para el término de búsqueda
-const terminoBusqueda = ref('');
-const imagenAmpliada = ref<string | null>(null);
+const productoSeleccionado = ref<Producto | null>(null);//producto que se esta detallando 
+const terminoBusqueda = ref(''); //valor del input del formulario
+const imagenAmpliada = ref<string | null>(null);//variable para aumentar la imagen que se pulsa
+const emit = defineEmits(['productoAgregado']);// definicion de la emision de eventos cuando se añade un producto a la cesta
+const router = useRouter();//accede a router
+/*
+******************************************************************************************
+@method funcion que sasigna un valor a imagen prinicpal para que pueda ser agrandada 
+******************************************************************************************
+*/
 const mostrarImagenAmpliada = (imagen: string) => {
   imagenAmpliada.value = imagen;
 };
+/*
+******************************************************************************************
+@method funcion que agranda la imagen principal
+******************************************************************************************
+*/
 const mostrarImagenPrincipal = () => {
   if (productoSeleccionado && productoSeleccionado.value && productoSeleccionado.value.images) {
     imagenAmpliada.value = productoSeleccionado.value.images[0];
   }
 };
+/*
+******************************************************************************************
+@method funcion que elimina el valor de imagen prinicipal para que se cierre
+******************************************************************************************
+*/
 const cerrarImagenAmpliada = () => {
   imagenAmpliada.value = null;
 };
-
-// Accede al router
-const router = useRouter();
-
-// Función para generar emojis de estrellas basada en la valoración
+/*
+******************************************************************************************
+@method funcion que crea un string con tantas estrellas como puntos haya en la valoracion
+******************************************************************************************
+*/
 const generarEstrellas = () => {
   if (productoSeleccionado && productoSeleccionado.value) {
     let estrellas = '⭐️'.repeat(Math.floor(productoSeleccionado.value.rating));
@@ -44,17 +50,22 @@ const generarEstrellas = () => {
     }
     return estrellas;
   }
-  // En caso de que no haya un producto seleccionado, puedes devolver un valor predeterminado o manejarlo según tus necesidades.
-  return '';
 };
-
-
-// Función para manejar la búsqueda y redirigir a la vista de productos
+/*
+******************************************************************************************
+@method funcion que redirige a la vista productos con un criterio de busqueda para que
+pueda mostrarse
+******************************************************************************************
+*/
 const buscar = () =>
 {
-  // Redirige a la vista de productos con el término de búsqueda como parámetro
   router.push({ name: 'productos', query: { q: terminoBusqueda.value } });
 };
+/*
+******************************************************************************************
+@method funcion que recupera el valor del producto que hay que detallar de localeStorage
+******************************************************************************************
+*/
 onMounted(() => {
   const storedProduct = localStorage.getItem('productoSeleccionado');
   console.log(storedProduct);
@@ -64,12 +75,26 @@ onMounted(() => {
   }
   console.log(productoSeleccionado.value);
 });
-const emits = defineEmits(['productoAgregadoAlCarro']);
+/*
+******************************************************************************************
+@method funcion que actualiza la memoria con un item mas añadido al carrito
+******************************************************************************************
+*/
 const agregarAlCarro = () => {
-  emits('productoAgregadoAlCarro');
+  // Recupera el array del carrito desde localStorage
+  const carritoGuardado = localStorage.getItem('carrito');
+  // Inicializa el array si no existe en localStorage
+  const productosComprados = carritoGuardado ? JSON.parse(carritoGuardado) : [];
+  // Agrega el producto seleccionado al array
+  productosComprados.push(productoSeleccionado.value);
+  // Guarda el array actualizado en localStorage
+  localStorage.setItem('carrito', JSON.stringify(productosComprados));
+  emit('productoAgregado', 1);
+  
 };
-</script>
 
+</script> 
+<!--////////////////////////////////////////TEMPLATE////////////////////////////////////////-->  
 <template>
   
   <div class="logopeque">    
@@ -96,8 +121,6 @@ const agregarAlCarro = () => {
     <div v-if="imagenAmpliada" class="imagenAmpliada" @click="cerrarImagenAmpliada">
       <img :src="imagenAmpliada" alt="Imagen ampliada">
     </div>
-  
-
     <p class="titulo">{{ productoSeleccionado?.title }}</p>
     <p class="descuento">- {{ productoSeleccionado?.discountPercentage }} % Desc.</p>
     <p class="price">Precio: {{ productoSeleccionado?.price }} €</p>
@@ -106,10 +129,9 @@ const agregarAlCarro = () => {
     <p class="description">{{ productoSeleccionado?.description }}</p>
   </div>
 
-  <button class="comprar" @click="agregarAlCarro">AÑADIR A LA CESTA</button>
+  <button class="comprar" @click="agregarAlCarro()">AÑADIR A LA CESTA</button>
 </template>
-
-
+<!--///////////////////////////////////////STYLE///////////////////////////////////////-->  
 <style scoped>
 /* Estilos específicos para la tarjeta del producto */
 </style>

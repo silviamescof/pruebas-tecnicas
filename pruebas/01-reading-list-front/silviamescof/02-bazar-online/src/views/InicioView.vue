@@ -1,3 +1,7 @@
+<!--Esta vista es el punnto de entrada de la aplicación, permite hacer una busqueda
+   y dirige a la vista productosView con el dato recogido en el input-->
+
+ <!--////////////////////////////////////////TEMPLATE////////////////////////////////////////-->  
 <template>
   <article class="inicio">
     <h1>Bazar Online</h1>
@@ -11,17 +15,15 @@
     
   </article>
 </template>
-
+ <!--////////////////////////////////////////SCRIPT///////////////////////////////////////-->  
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 // Datos reactivos para el término de búsqueda
 const terminoBusqueda = ref('');
-
 // Accede al router
 const router = useRouter();
-
 // Función para manejar la búsqueda y redirigir a la vista de productos
 const buscar = () =>
 {
@@ -29,7 +31,6 @@ const buscar = () =>
   router.push({ name: 'productos', query: { q: terminoBusqueda.value } });
 };
 </script>
-
+ <!--///////////////////////////////////////STYLE///////////////////////////////////////-->  
 <style scoped>
-/* Puedes agregar estilos específicos para el componente aquí */
 </style>
