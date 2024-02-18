@@ -1,4 +1,4 @@
-# enlace desplegado interfaz : https://65d25696c1e04c6b45662cf1--brilliant-pudding-586217.netlify.app/
+# enlace desplegado interfaz :https://main--interfazbazaronline.netlify.app/
 # enlace desplegado API https://apibazaronline.onrender.com/api/products
 
 
