@@ -21,7 +21,7 @@ o el carrito se ha vaciado, para que se reflejen los cambios
 */
 const handleProductoAgregado = () => {
   // Recarga la página cuando se agrega un producto al carrito o se vacia. 
-  window.location.reload();
+  window.location.href = window.location.href;
 };
 </script>
  <!--///////////////////////////////////////STYLE///////////////////////////////////////-->  
