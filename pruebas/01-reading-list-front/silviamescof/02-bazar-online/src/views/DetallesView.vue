@@ -13,6 +13,7 @@
 <script setup lang="ts">
 import ProductoDetallado from '@/components/ProductoDetallado.vue';
 import Carro from '@/components/Carro.vue';
+
 /*
 ******************************************************************************************
 @method funcion que recarga la pagina, cada vez que se ha añadido un producto al carrito
@@ -20,13 +21,10 @@ o el carrito se ha vaciado, para que se reflejen los cambios
 ******************************************************************************************
 */
 const handleProductoAgregado = () => {
-  // Obtener la parte de la ruta y el query string de la URL actual
-  const path = window.location.pathname;
-  const queryString = window.location.search;
-
-  // Reconstruir la URL y recargar la página
-  window.location.href = path + queryString;
+  const timestamp = new Date().getTime();
+  window.location.href = `${window.location.pathname}?${timestamp}`;
 };
+
 </script>
  <!--///////////////////////////////////////STYLE///////////////////////////////////////-->  
 <style scoped>
