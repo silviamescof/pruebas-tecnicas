@@ -20,8 +20,12 @@ o el carrito se ha vaciado, para que se reflejen los cambios
 ******************************************************************************************
 */
 const handleProductoAgregado = () => {
-  // Recarga la página cuando se agrega un producto al carrito o se vacia. 
-  window.location.href = window.location.href;
+  // Obtener la parte de la ruta y el query string de la URL actual
+  const path = window.location.pathname;
+  const queryString = window.location.search;
+
+  // Reconstruir la URL y recargar la página
+  window.location.href = path + queryString;
 };
 </script>
  <!--///////////////////////////////////////STYLE///////////////////////////////////////-->  
