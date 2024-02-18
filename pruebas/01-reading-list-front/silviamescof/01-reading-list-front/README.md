@@ -1,3 +1,4 @@
+# enlace desplegado: https://65d259821a4874889981a850--amazing-alfajores-a59bb8.netlify.app/
 # 01-reading-list-front
 
 This template should help get you started developing with Vue 3 in Vite.
