@@ -82,8 +82,10 @@ a{
   float: left;
   width: 70%;
 }
+
 .vistaDetalles{
   width: 60%;
+  margin-left: 20%;
 }
 .tarjetaProductoDetallado{
   clear: both;
@@ -240,4 +242,45 @@ tfoot >tr td{
 }
 tfoot >tr td:nth-child(3){
   background-color: rgb(216, 243, 216) ;
+}
+@media only screen and (max-width: 767px) {
+  .galeria{
+    width: 100%;
+  }
+  .titulo{
+    width: 100%;
+    font-size: 1em;
+  }
+  .numarticulos{
+    font-size: 0.5em;
+    top: 3vh;
+  }
+  .descuento{
+    width: 100%;
+    font-size: 1em;
+  }
+  .price{
+    width: 100%;
+    font-size: 1em;
+  }
+  .valoracion{
+    font-size: 1em;
+  }
+  .description{
+    font-size: 1em;
+  }
+  .comprar{
+    width: 100%;
+  }
+  .categoria{
+    font-size: 1em;
+  }
+  .columnas{
+    grid-template-columns: auto;
+    margin-left: 10%;
+  }
+ .productosview {
+  font-size: 0.5em;
+ }
+ 
 }
